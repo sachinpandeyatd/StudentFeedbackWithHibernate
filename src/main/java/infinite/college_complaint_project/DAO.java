@@ -1,15 +1,18 @@
 package infinite.college_complaint_project;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+
 
 public class DAO {
 	SessionFactory sessionFactory;
@@ -97,5 +100,15 @@ public class DAO {
 		session.close();
 		
 		return "Feedback Added.";
+	}
+	
+	public List feedbacks(String instructor, String subject) {
+		sessionFactory=SessionHelper.getConnection();
+		Session session = sessionFactory.openSession();
+		
+		Query query = session.createQuery("SELECT fbValue, count(*) from Feedback where instructor = :instructor and subject = :subject group by fbValue").setParameter("instructor", instructor).setParameter("subject", subject);
+		List<Object> feedbacks = query.list();
+		
+		return feedbacks;
 	}
 }

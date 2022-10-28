@@ -12,9 +12,7 @@
 	<form name="feedbackForm">
 		<c:if test="${param.instructor != null }">
 			<c:set var="instructorName" value="${param.instructor }"/>
-		</c:if>
-			
-		<c:if test="${param.instructor != null }">
+
 			Instructor:
 			<select id="instructor" name="instructor">
 				<option value="${instructorName }">${instructorName }</option>
@@ -39,6 +37,7 @@
 			
 			<input type="submit">
 		</c:if>
+		
 		<c:if test="${param.instructor == null }">
 			Instructor:
 			<select id="instructor" name="instructor" onchange="submit()">
